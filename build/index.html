@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Image Api</title>
+    <style>
+      .form-group{
+        border: black 4px solid;
+        margin: 25px;
+        padding: 30px;
+        text-align: center;
+      }
+      .form-control{
+        width: 250px;
+        display: inline-block;
+        margin: 7px;
+      }
+      .btn, .btn-primary{
+        width: 150px;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    </style>
+</head>
+<body>
+  <div class="form-group">
+    <h1 style="font-size: 50px; font-weight: bold; margin-bottom: 40px;">Please upload an image</h1>
+    <form action="routes/apis/image" method="get">
+      <label for="exampleFormControlFile1" style="font-size: 10px; font-weight: bold;">Select an iamge to show</label>
+      <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+      <button type="submit"class="btn btn-primary">Show Image</button>
+    </form>
+    <form action="routes/apis/resizing" method="get">
+      <label for="exampleFormControlFile2" style="font-size: 10px; font-weight: bold;">Select an iamge to resize</label>
+      <input type="file" class="form-control-file" id="exampleFormControlFile2" name="toprocess">
+      <label for="heightfeild" style="font-size: 15px;">Height</label>
+      <input type="number" class="form-control" id="heightfeild" placeholder="Enter height" name="height">
+      <label for="widthfeild" style="font-size: 15px;">Width</label>
+      <input type="number" class="form-control" id="widthfeild" placeholder="Enter width" name="width">
+      <button type="submit" class="btn btn-primary" style="display: inline-block;">Resize Image</button>
+    </form>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

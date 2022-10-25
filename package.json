@@ -1,0 +1,47 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "udacity images-processing-API",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "npx tsc",
+    "prettier": "prettier --ignore-path .prettierignore --config .prettierrc \"build/**/*.+(js|ts|json)\" --write",
+    "lint": "eslint --ignore-path .eslintignore --ext .ts .",
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run jasmine"
+  },
+  "keywords": [
+    "images-api"
+  ],
+  "author": "marianwadia",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jasmine": "^4.4.0",
+    "sharp": "^0.31.1",
+    "supertest": "^6.3.0",
+    "typerscript": "^0.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/jasmine": "^4.3.0",
+    "@types/node": "^18.11.3",
+    "@types/prettier": "^2.7.1",
+    "@types/sharp": "^0.31.0",
+    "@types/supertest": "^2.0.12",
+    "@types/typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "i": "^0.3.7",
+    "jasmine-spec-reporter": "^7.0.0",
+    "nodemon": "^2.0.20",
+    "npm": "^8.19.2",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}
