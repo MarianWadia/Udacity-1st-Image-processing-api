@@ -5,12 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const index_1 = __importDefault(require("./routes/index"));
-// import {promises as fsPromises} from "fs";
 const app = (0, express_1.default)();
 const port = 3000;
-app.use(express_1.default.static('build'));
+app.use(express_1.default.static("build"));
 app.listen(port, () => {
     console.log(`The server is running on port ${port}`);
 });
-app.use('/routes/apis', index_1.default);
+app.use("/routes/apis", index_1.default);
 exports.default = app;

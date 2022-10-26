@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../index"));
 const supertest_1 = __importDefault(require("supertest"));
 const request = (0, supertest_1.default)(index_1.default);
-const Baseurl = '/routes/apis';
+const Baseurl = "/routes/apis";
 it("test main route", () => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield request.get(Baseurl);
     expect(response.status).toBe(301);

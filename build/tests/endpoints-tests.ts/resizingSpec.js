@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const indexSpec_1 = __importDefault(require("../indexSpec"));
 const sharp_1 = __importDefault(require("sharp"));
-const Baseurl = '/routes/apis';
+const Baseurl = "/routes/apis";
 let width;
 let height;
 let file;

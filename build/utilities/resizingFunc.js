@@ -12,16 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const originalsArray_1 = __importDefault(require("../../utilities/originalsArray"));
-const indexSpec_1 = __importDefault(require("../indexSpec"));
-const Baseurl = "/routes/apis";
-let file;
-it("get original image", () => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield indexSpec_1.default.get(`${Baseurl}/image?file=${file}`);
-    if (file && originalsArray_1.default.includes(file)) {
-        expect(response.status).toBe(200);
-    }
-    else if (file === undefined || !originalsArray_1.default.includes(file)) {
-        expect(response.status).toBe(404);
-    }
-}));
+const sharp_1 = __importDefault(require("sharp"));
+const process = (inputFile, width, height, outFile) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, sharp_1.default)(inputFile).resize(height, width).toFile(outFile);
+});
+exports.default = process;
