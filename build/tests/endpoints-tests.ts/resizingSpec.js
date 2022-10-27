@@ -17,19 +17,26 @@ const originalsArray_1 = __importDefault(require("../../utilities/originalsArray
 const Baseurl = "/routes/apis";
 const errorMessage = `Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
         [${originalsArray_1.default}]`;
-it("enters data for resizing", (file = "hello.jpg", height = 0, width = 0) => __awaiter(void 0, void 0, void 0, function* () {
+let width;
+let file;
+let height;
+it("enters data for resizing", () => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
-    expect(response.text).toEqual(errorMessage);
-}));
-it("tests for valid image", (file = "fjord.jpg", height = 0, width = 0) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
-    expect(response.status).toEqual(200);
-}));
-it("tests for valid image and data", (file = "fjord.jpg", height = 582, width = 854) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
-    expect(response.status).toEqual(400);
-}));
-it("tests for invalid image and data", (file = "hello.jpg", height = -582, width = -854) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
-    expect(response.text).toEqual(errorMessage);
+    const widthNum = parseInt(width);
+    const heightNum = parseInt(height);
+    if (file === "hello.jpg" && heightNum === 0 && widthNum === 0) {
+        expect(response.text).toEqual(errorMessage);
+    }
+    else if (file === "fjord.jpg" && heightNum === 0 && widthNum === 0) {
+        expect(response.status).toEqual(200);
+    }
+    else if (file === "fjord.jpg" && heightNum === 582 && widthNum === 854) {
+        expect(response.status).toEqual(200);
+    }
+    else if (file === "hello.jpg" && heightNum === -582 && widthNum === -854) {
+        expect(response.text).toEqual(errorMessage);
+    }
+    else {
+        expect(response.text).toEqual(errorMessage);
+    }
 }));

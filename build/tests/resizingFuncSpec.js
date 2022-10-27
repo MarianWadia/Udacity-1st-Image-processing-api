@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const resizingFunc_1 = __importDefault(require("../utilities/resizingFunc"));
 const originalsArray_1 = __importDefault(require("../utilities/originalsArray"));
 const path_1 = __importDefault(require("path"));
-const rootPath = path_1.default.resolve('.//');
+const rootPath = path_1.default.resolve(".//");
 const erroeMessage = `Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
         [${originalsArray_1.default}]`;
 // const ImagePath: string = path.join(rootPath, 'images', 'originals', `${imageName}`);
@@ -28,7 +28,7 @@ describe("the resizing functions of images", () => {
         const imageName = "fjord.jpg";
         const height = 578;
         const width = 984;
-        const outFilePath = path_1.default.join(rootPath, 'images', 'thumbnails', `${height}x${width}${imageName}`);
+        const outFilePath = path_1.default.join(rootPath, "images", "thumbnails", `${height}x${width}${imageName}`);
         const response = yield (0, resizingFunc_1.default)(imageName, width, height);
         expect(response).toEqual(outFilePath);
     }));
@@ -43,7 +43,7 @@ describe("the resizing functions of images", () => {
         const imageName = "fjord.jpg";
         const height = 0;
         const width = 0;
-        const ImagePath = path_1.default.join(rootPath, 'images', 'originals', `${imageName}`);
+        const ImagePath = path_1.default.join(rootPath, "images", "originals", `${imageName}`);
         const response = yield (0, resizingFunc_1.default)(imageName, width, height);
         expect(response).toEqual(ImagePath);
     }));

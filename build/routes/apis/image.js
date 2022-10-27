@@ -10,7 +10,7 @@ const image = express_1.default.Router();
 image.get("/", (req, res) => {
     const fileName = req.query.file;
     const currentPath = path_1.default.resolve(".\\");
-    const imagePath = path_1.default.join(currentPath, 'images', 'originals', `${fileName}`);
+    const imagePath = path_1.default.join(currentPath, "images", "originals", `${fileName}`);
     const originalImage = originalsArray_1.default.includes(fileName);
     if (fileName === undefined) {
         res.status(400)

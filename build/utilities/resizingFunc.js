@@ -20,12 +20,12 @@ const process = (inputFile, width, height, outFile) => __awaiter(void 0, void 0,
 });
 const rootPath = path_1.default.resolve(".\\");
 const modifing = (imageName, width, height) => __awaiter(void 0, void 0, void 0, function* () {
-    const ImagePath = path_1.default.join(rootPath, 'images', 'originals', `${imageName}`);
-    const outFilePath = path_1.default.join(rootPath, 'images', 'thumbnails', `${height}x${width}${imageName}`);
+    const ImagePath = path_1.default.join(rootPath, "images", "originals", `${imageName}`);
+    const outFilePath = path_1.default.join(rootPath, "images", "thumbnails", `${height}x${width}${imageName}`);
     const originalImage = originalsArray_1.default.includes(imageName);
     const validValues = width > 0 && height > 0;
     const notValidValues = isNaN(width) || isNaN(height);
-    if ((originalImage && width === 0 && height === 0)) {
+    if (originalImage && width === 0 && height === 0) {
         // send original image without resizing
         return ImagePath;
     }

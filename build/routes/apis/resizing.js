@@ -18,19 +18,19 @@ const fs_1 = __importDefault(require("fs"));
 const originalsArray_1 = __importDefault(require("../../utilities/originalsArray"));
 const resizingFunc_1 = __importDefault(require("../../utilities/resizingFunc"));
 const resizing = express_1.default.Router();
-const rootPath = path_1.default.resolve('.//');
+const rootPath = path_1.default.resolve(".//");
 resizing.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fileName = req.query.toprocess;
     const enteredWidth = req.query.width;
     const enteredHeight = req.query.height;
     const height = parseInt(enteredHeight);
     const width = parseInt(enteredWidth);
-    const outFilePath = path_1.default.join(rootPath, 'images', 'thumbnails', `${height}x${width}${fileName}`);
+    const outFilePath = path_1.default.join(rootPath, "images", "thumbnails", `${height}x${width}${fileName}`);
     const originalImage = originalsArray_1.default.includes(fileName);
     const validValues = width > 0 && height > 0;
     const notValidValues = isNaN(width) || isNaN(height);
     const response = (0, resizingFunc_1.default)(fileName, width, height);
-    if ((fs_1.default.existsSync(outFilePath))) {
+    if (fs_1.default.existsSync(outFilePath)) {
         res.status(200).sendFile(yield response);
     }
     if (originalImage && validValues && !notValidValues) {
