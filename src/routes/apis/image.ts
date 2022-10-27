@@ -2,15 +2,19 @@ import express from "express";
 import { Request, Response } from "express";
 import path from "path";
 import originals from "../../utilities/originalsArray";
-
 const image = express.Router();
-image.get("/", (req :Request, res :Response) => {
+image.get("/", (req: Request, res: Response) => {
   const fileName: string | undefined = req.query.file as string;
   const currentPath = path.resolve(".\\");
-  const imagePath = path.join(currentPath, 'images', 'originals', `${fileName}`);
+  const imagePath = path.join(
+    currentPath,
+    "images",
+    "originals",
+    `${fileName}`
+  );
   const originalImage: boolean = originals.includes(fileName as string);
 
-  if (fileName === undefined){
+  if (fileName === undefined) {
     res.status(400)
       .send(`Bad request please enter your file name our avaliable images: 
         [${originals}]`);

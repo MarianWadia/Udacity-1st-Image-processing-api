@@ -1,40 +1,48 @@
 import express from "express";
 import { Request, Response } from "express";
 import path from "path";
+import fs from "fs";
 import originals from "../../utilities/originalsArray";
-import process from "../../utilities/resizingFunc";
+import modifing from "../../utilities/resizingFunc";
 
 const resizing = express.Router();
+const rootPath = path.resolve(".//");
 
-const pathRoot: string = path.resolve(".\\");
-
-resizing.get("/", (req: Request, res: Response) => {
-  const fileName: string | undefined = req.query.toprocess as string;
-  const enteredWidth: string | undefined = req.query.width as string;
-  const enteredHeight: string | undefined = req.query.height as string;
+resizing.get("/", async (req: Request, res: Response) => {
+  const fileName: string = req.query.toprocess as string;
+  const enteredWidth: string = req.query.width as string;
+  const enteredHeight: string = req.query.height as string;
   const height: number = parseInt(enteredHeight);
   const width: number = parseInt(enteredWidth);
-  const ImagePath: string = path.join(pathRoot, 'images', 'originals', `${fileName}`);
-  const outFilePath: string = path.join(pathRoot, 'images', 'thumbnails', `${height}x${width}${fileName}`);
+  const outFilePath: string = path.join(
+    rootPath,
+    "images",
+    "thumbnails",
+    `${height}x${width}${fileName}`
+  );
   const originalImage: boolean = originals.includes(fileName as string);
+  const validValues: boolean = width > 0 && height > 0;
+  const notValidValues: boolean = isNaN(width) || isNaN(height);
+  const response = modifing(fileName, width, height) as Promise<string>;
 
-  if (
-    `${ImagePath}${height}x${width}${fileName}` === outFilePath ||
-    width == 0 ||
-    height == 0
-  ) {
-    return res.send("No need to resize").sendFile(outFilePath);
-  } else if (
-    !originalImage ||
-    isNaN(width) || 
-    isNaN(height)
-  ) {
-    return res.status(400)
-      .send(`Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
-        [${originals}]`);
-  } else {
-     process(ImagePath, width, height, outFilePath);
+  if (fs.existsSync(outFilePath)) {
+    res.status(200).sendFile(await response);
   }
-  res.status(200).sendFile(outFilePath);
+
+  if (originalImage && validValues && !notValidValues) {
+    res.status(200).sendFile(await response);
+  } else if (!originalImage || notValidValues || !validValues) {
+    res.status(200).send(await response);
+  } else {
+    res.status(400).send(await response);
+  }
+
+  if (width === 0 && height > 0 && originalImage) {
+    res.status(200).sendFile(await response);
+  } else if (height === 0 && width > 0 && originalImage) {
+    res.sendFile(await response);
+  } else {
+    res.status(400).send(await response);
+  }
 });
 export default resizing;

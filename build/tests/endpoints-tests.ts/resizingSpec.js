@@ -13,20 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const indexSpec_1 = __importDefault(require("../indexSpec"));
-const sharp_1 = __importDefault(require("sharp"));
+const originalsArray_1 = __importDefault(require("../../utilities/originalsArray"));
 const Baseurl = "/routes/apis";
-let width;
-let height;
-let file;
-it("enters data for resizing", () => __awaiter(void 0, void 0, void 0, function* () {
+const errorMessage = `Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
+        [${originalsArray_1.default}]`;
+it("enters data for resizing", (file = "hello.jpg", height = 0, width = 0) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
-    const parsedHeight = parseInt(height);
-    const parsedWidth = parseInt(width);
-    if (parsedHeight < 0 || parsedWidth < 0) {
-        expect(response.status).toBe(400);
-    }
-    else if (file && parsedHeight && parsedWidth) {
-        expect(response.status).toBe(202);
-        expect((0, sharp_1.default)(file).resize(parsedHeight, parsedWidth)).toBeTruthy;
-    }
+    expect(response.text).toEqual(errorMessage);
+}));
+it("tests for valid image", (file = "fjord.jpg", height = 0, width = 0) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
+    expect(response.status).toEqual(200);
+}));
+it("tests for valid image and data", (file = "fjord.jpg", height = 582, width = 854) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
+    expect(response.status).toEqual(400);
+}));
+it("tests for invalid image and data", (file = "hello.jpg", height = -582, width = -854) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield indexSpec_1.default.get(`${Baseurl}/resizing?toprocess=${file}&height=${height}&width=${width}`);
+    expect(response.text).toEqual(errorMessage);
 }));
