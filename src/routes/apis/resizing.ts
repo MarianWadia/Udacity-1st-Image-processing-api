@@ -26,12 +26,12 @@ resizing.get("/", async (req: Request, res: Response, next) :Promise<void> => {
   const response = modifing(fileName, width, height) as Promise<string>;
   
   if(req.body){
-    if(originalImage){
-      if (fs.existsSync(outFilePath)) {
-          res.status(200).sendFile(await response);
-          //next();
-        }
-      else if (validValues && !notValidValues) {
+    if (fs.existsSync(outFilePath)) {
+      res.status(200).sendFile(await response);
+      //next();
+    }
+    else if(originalImage){
+      if (validValues && !notValidValues) {
           res.status(200).sendFile(await response);
            //next();
           }
@@ -40,24 +40,22 @@ resizing.get("/", async (req: Request, res: Response, next) :Promise<void> => {
         //next();
       } else if (height === 0 && width > 0) {
         res.sendFile(await response);
-         next();
-      } else {
-        res.status(400).send(await response);
-          next();
+        //  next();
       }
   }
   else if (!originalImage || notValidValues || !validValues) {
     res.status(200).send(await response);
-     next();
+      next();
   }
   else {
     res.status(400).send(await response);
-     next();
+      next();
   }
 }
 else{
   res.status(400).send(await response);
-     next();
+      next();
 }
+// next();
 });
 export default resizing;

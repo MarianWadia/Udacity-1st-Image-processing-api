@@ -31,12 +31,12 @@ resizing.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function
     const notValidValues = isNaN(width) || isNaN(height);
     const response = (0, resizingFunc_1.default)(fileName, width, height);
     if (req.body) {
-        if (originalImage) {
-            if (fs_1.default.existsSync(outFilePath)) {
-                res.status(200).sendFile(yield response);
-                //next();
-            }
-            else if (validValues && !notValidValues) {
+        if (fs_1.default.existsSync(outFilePath)) {
+            res.status(200).sendFile(yield response);
+            //next();
+        }
+        else if (originalImage) {
+            if (validValues && !notValidValues) {
                 res.status(200).sendFile(yield response);
                 //next();
             }
@@ -46,11 +46,7 @@ resizing.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function
             }
             else if (height === 0 && width > 0) {
                 res.sendFile(yield response);
-                next();
-            }
-            else {
-                res.status(400).send(yield response);
-                next();
+                //  next();
             }
         }
         else if (!originalImage || notValidValues || !validValues) {
@@ -66,5 +62,6 @@ resizing.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function
         res.status(400).send(yield response);
         next();
     }
+    // next();
 }));
 exports.default = resizing;
