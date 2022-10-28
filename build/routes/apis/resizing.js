@@ -19,7 +19,7 @@ const originalsArray_1 = __importDefault(require("../../utilities/originalsArray
 const resizingFunc_1 = __importDefault(require("../../utilities/resizingFunc"));
 const resizing = express_1.default.Router();
 const rootPath = path_1.default.resolve(".//");
-resizing.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+resizing.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const fileName = req.query.toprocess;
     const enteredWidth = req.query.width;
     const enteredHeight = req.query.height;
@@ -30,26 +30,41 @@ resizing.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const validValues = width > 0 && height > 0;
     const notValidValues = isNaN(width) || isNaN(height);
     const response = (0, resizingFunc_1.default)(fileName, width, height);
-    if (fs_1.default.existsSync(outFilePath)) {
-        res.status(200).sendFile(yield response);
-    }
-    if (originalImage && validValues && !notValidValues) {
-        res.status(200).sendFile(yield response);
-    }
-    else if (!originalImage || notValidValues || !validValues) {
-        res.status(200).send(yield response);
+    if (req.body) {
+        if (originalImage) {
+            if (fs_1.default.existsSync(outFilePath)) {
+                res.status(200).sendFile(yield response);
+                //next();
+            }
+            else if (validValues && !notValidValues) {
+                res.status(200).sendFile(yield response);
+                //next();
+            }
+            else if (width === 0 && height > 0) {
+                res.status(200).sendFile(yield response);
+                //next();
+            }
+            else if (height === 0 && width > 0) {
+                res.sendFile(yield response);
+                next();
+            }
+            else {
+                res.status(400).send(yield response);
+                next();
+            }
+        }
+        else if (!originalImage || notValidValues || !validValues) {
+            res.status(200).send(yield response);
+            next();
+        }
+        else {
+            res.status(400).send(yield response);
+            next();
+        }
     }
     else {
         res.status(400).send(yield response);
-    }
-    if (width === 0 && height > 0 && originalImage) {
-        res.status(200).sendFile(yield response);
-    }
-    else if (height === 0 && width > 0 && originalImage) {
-        res.sendFile(yield response);
-    }
-    else {
-        res.status(400).send(yield response);
+        next();
     }
 }));
 exports.default = resizing;

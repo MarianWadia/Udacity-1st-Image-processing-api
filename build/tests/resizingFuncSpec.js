@@ -18,11 +18,6 @@ const path_1 = __importDefault(require("path"));
 const rootPath = path_1.default.resolve(".//");
 const erroeMessage = `Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
         [${originalsArray_1.default}]`;
-// const ImagePath: string = path.join(rootPath, 'images', 'originals', `${imageName}`);
-// const outFilePath: string = path.join(rootPath, 'images', 'thumbnails', `${height}x${width}${imageName}`);
-// const originalImage: boolean = originals.includes(imageName as string);
-// const validValues: boolean = width > 0 && height > 0;
-// const notValidValues: boolean = isNaN(width) || isNaN(height);
 describe("the resizing functions of images", () => {
     it("tests when all data is right", () => __awaiter(void 0, void 0, void 0, function* () {
         const imageName = "fjord.jpg";
@@ -51,7 +46,6 @@ describe("the resizing functions of images", () => {
         const imageName = "fjord.jpg";
         const height = -895;
         const width = -985;
-        // const ImagePath: string = path.join(rootPath, 'images', 'originals', `${imageName}`);
         const response = yield (0, resizingFunc_1.default)(imageName, width, height);
         expect(response).toEqual(erroeMessage);
     }));

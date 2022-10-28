@@ -6,7 +6,7 @@ const port = 3000;
 
 app.use(express.static("build"));
 
-app.listen(port, () => {
+app.listen(port, () :void => {
   console.log(`The server is running on port ${port}`);
 });
 

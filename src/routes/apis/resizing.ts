@@ -8,7 +8,7 @@ import modifing from "../../utilities/resizingFunc";
 const resizing = express.Router();
 const rootPath = path.resolve(".//");
 
-resizing.get("/", async (req: Request, res: Response) => {
+resizing.get("/", async (req: Request, res: Response, next) :Promise<void> => {
   const fileName: string = req.query.toprocess as string;
   const enteredWidth: string = req.query.width as string;
   const enteredHeight: string = req.query.height as string;
@@ -24,25 +24,40 @@ resizing.get("/", async (req: Request, res: Response) => {
   const validValues: boolean = width > 0 && height > 0;
   const notValidValues: boolean = isNaN(width) || isNaN(height);
   const response = modifing(fileName, width, height) as Promise<string>;
-
-  if (fs.existsSync(outFilePath)) {
-    res.status(200).sendFile(await response);
+  
+  if(req.body){
+    if(originalImage){
+      if (fs.existsSync(outFilePath)) {
+          res.status(200).sendFile(await response);
+          //next();
+        }
+      else if (validValues && !notValidValues) {
+          res.status(200).sendFile(await response);
+           //next();
+          }
+      else if (width === 0 && height > 0) {
+        res.status(200).sendFile(await response);
+        //next();
+      } else if (height === 0 && width > 0) {
+        res.sendFile(await response);
+         next();
+      } else {
+        res.status(400).send(await response);
+          next();
+      }
   }
-
-  if (originalImage && validValues && !notValidValues) {
-    res.status(200).sendFile(await response);
-  } else if (!originalImage || notValidValues || !validValues) {
+  else if (!originalImage || notValidValues || !validValues) {
     res.status(200).send(await response);
-  } else {
-    res.status(400).send(await response);
+     next();
   }
-
-  if (width === 0 && height > 0 && originalImage) {
-    res.status(200).sendFile(await response);
-  } else if (height === 0 && width > 0 && originalImage) {
-    res.sendFile(await response);
-  } else {
+  else {
     res.status(400).send(await response);
+     next();
   }
+}
+else{
+  res.status(400).send(await response);
+     next();
+}
 });
 export default resizing;
