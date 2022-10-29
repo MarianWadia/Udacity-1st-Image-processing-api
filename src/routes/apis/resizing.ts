@@ -8,7 +8,7 @@ import modifing from "../../utilities/resizingFunc";
 const resizing = express.Router();
 const rootPath = path.resolve(".//");
 
-resizing.get("/", async (req: Request, res: Response, next) :Promise<void> => {
+resizing.get("/", async (req: Request, res: Response) :Promise<void> => {
   const fileName: string = req.query.toprocess as string;
   const enteredWidth: string = req.query.width as string;
   const enteredHeight: string = req.query.height as string;
@@ -45,16 +45,16 @@ resizing.get("/", async (req: Request, res: Response, next) :Promise<void> => {
   }
   else if (!originalImage || notValidValues || !validValues) {
     res.status(200).send(await response);
-      next();
+      // next();
   }
   else {
     res.status(400).send(await response);
-      next();
+      // next();
   }
 }
 else{
   res.status(400).send(await response);
-      next();
+      // next();
 }
 // next();
 });
