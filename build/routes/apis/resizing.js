@@ -38,10 +38,7 @@ resizing.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             if (validValues && !notValidValues) {
                 res.status(200).sendFile(yield response);
             }
-            else if (height === 0 && width === 0) {
-                res.sendFile(yield response);
-            }
-            else if (notValidValues || height < 0 || width < 0) {
+            else if (notValidValues) {
                 res.status(400).send(yield response);
             }
         }

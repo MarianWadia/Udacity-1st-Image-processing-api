@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const index_1 = __importDefault(require("./routes/index"));
 const app = (0, express_1.default)();
-const port = 5000;
+const port = 3000;
 app.use(express_1.default.static("build"));
 app.listen(port, () => {
     console.log(`The server is running on port ${port}`);

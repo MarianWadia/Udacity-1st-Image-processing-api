@@ -28,12 +28,11 @@ resizing.get("/", async (req: Request, res: Response): Promise<void> => {
   if (req.query) {
     if (fs.existsSync(outFilePath)) {
       res.status(200).sendFile(await response);
-    } else if (originalImage) {
+    } 
+    else if (originalImage) {
       if (validValues && !notValidValues) {
         res.status(200).sendFile(await response);
-      } else if (height === 0 && width === 0) {
-        res.sendFile(await response);
-      } else if (notValidValues || height < 0 || width < 0) {
+      } else if (notValidValues) {
         res.status(400).send(await response);
       }
     } else if (!originalImage || notValidValues || !validValues) {
