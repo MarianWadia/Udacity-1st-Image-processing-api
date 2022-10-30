@@ -7,7 +7,7 @@ const erroeMessage = `Bad request please enter your file name correctly, and pos
         [${originals}]`;
 
 describe("the resizing functions of images", () => {
-  it("tests when all data is right", async () :Promise<void> => {
+  it("tests when all data is right", async (): Promise<void> => {
     const imageName = "fjord.jpg";
     const height = 578;
     const width = 984;
@@ -20,14 +20,14 @@ describe("the resizing functions of images", () => {
     const response = await modifing(imageName, width, height);
     expect(response).toEqual(outFilePath);
   });
-  it("tests when all data is right", async ():Promise<void> => {
+  it("tests when all data is right", async (): Promise<void> => {
     const imageName = "hello.jpg";
     const height = 0;
     const width = 0;
     const response = await modifing(imageName, width, height);
     expect(response).toEqual(erroeMessage);
   });
-  it("tests when all data is right", async () :Promise<void> => {
+  it("tests when all data is right", async (): Promise<void> => {
     const imageName = "fjord.jpg";
     const height = 0;
     const width = 0;
@@ -40,7 +40,7 @@ describe("the resizing functions of images", () => {
     const response = await modifing(imageName, width, height);
     expect(response).toEqual(ImagePath);
   });
-  it("tests when all data is right", async ():Promise<void> => {
+  it("tests when all data is right", async (): Promise<void> => {
     const imageName = "fjord.jpg";
     const height = -895;
     const width = -985;

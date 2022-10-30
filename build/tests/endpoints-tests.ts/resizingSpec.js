@@ -26,6 +26,7 @@ it("enters data for resizing", () => __awaiter(void 0, void 0, void 0, function*
     const heightNum = parseInt(height);
     if (file === "hello.jpg" && heightNum === 0 && widthNum === 0) {
         expect(response.text).toEqual(errorMessage);
+        expect(response.status).toEqual(400);
     }
     else if (file === "fjord.jpg" && heightNum === 0 && widthNum === 0) {
         expect(response.status).toEqual(200);
@@ -35,8 +36,10 @@ it("enters data for resizing", () => __awaiter(void 0, void 0, void 0, function*
     }
     else if (file === "hello.jpg" && heightNum === -582 && widthNum === -854) {
         expect(response.text).toEqual(errorMessage);
+        expect(response.status).toEqual(400);
     }
     else {
         expect(response.text).toEqual(errorMessage);
+        expect(response.status).toEqual(400);
     }
 }));

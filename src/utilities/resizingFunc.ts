@@ -34,23 +34,14 @@ const modifing = async (
 
   if (originalImage && width === 0 && height === 0) {
     return ImagePath;
-  }
-  else if (validValues && originalImage) {
+  } else if (validValues && originalImage) {
     await process(ImagePath, height, width, outFilePath);
     return outFilePath;
   } else if (!originalImage || notValidValues || !validValues) {
     const message = `Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
         [${originals}]`;
     return message;
-  }
-  else if (width === 0 && height > 0 && originalImage) {
-    await process(ImagePath, height, 0, outFilePath);
-    return outFilePath;
-  } else if (height === 0 && width > 0) {
-    await process(ImagePath, 0, width, outFilePath);
-    return outFilePath;
-  }
-  else {
+  } else {
     const message = `Bad request please enter your file name correctly, and positive values of width and height our avaliable images are: 
         [${originals}]`;
     return message;

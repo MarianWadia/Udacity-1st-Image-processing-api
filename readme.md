@@ -38,9 +38,10 @@ There are some scripts that you can run in order to execute them as `npm run sta
 ## License:
 
 [GNU General Public License version 3](https://opensource.org/licenses/GPL-3.0)
-
 ## Footer:
 
 Leave a star in GitHub, give a clap in Medium and share this guide if you found this helpful.
+
+[The Endpoint for resizing an image](http://localhost:5000/routes/apis/resizing?toprocess=fjord.jpg&width=857&height=857) is `localhost:5000/routes/apis/resizing?toprocess=fjord.jpg&width=857&height=857`
 
 ![Footerimage](https://raw.githubusercontent.com/navendu-pottekkat/awesome-readme/master/fooooooter.png)

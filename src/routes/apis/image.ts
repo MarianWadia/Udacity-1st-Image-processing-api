@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import path from "path";
 import originals from "../../utilities/originalsArray";
 const image = express.Router();
-image.get("/", (req: Request, res: Response) => {
+image.get("/", (req: Request, res: Response): void => {
   const fileName: string | undefined = req.query.file as string;
   const currentPath = path.resolve(".\\");
   const imagePath = path.join(

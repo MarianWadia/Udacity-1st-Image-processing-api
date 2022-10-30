@@ -19,7 +19,7 @@ const originalsArray_1 = __importDefault(require("../../utilities/originalsArray
 const resizingFunc_1 = __importDefault(require("../../utilities/resizingFunc"));
 const resizing = express_1.default.Router();
 const rootPath = path_1.default.resolve(".//");
-resizing.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+resizing.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fileName = req.query.toprocess;
     const enteredWidth = req.query.width;
     const enteredHeight = req.query.height;
@@ -30,38 +30,30 @@ resizing.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function
     const validValues = width > 0 && height > 0;
     const notValidValues = isNaN(width) || isNaN(height);
     const response = (0, resizingFunc_1.default)(fileName, width, height);
-    if (req.body) {
+    if (req.query) {
         if (fs_1.default.existsSync(outFilePath)) {
             res.status(200).sendFile(yield response);
-            //next();
         }
         else if (originalImage) {
             if (validValues && !notValidValues) {
                 res.status(200).sendFile(yield response);
-                //next();
             }
-            else if (width === 0 && height > 0) {
-                res.status(200).sendFile(yield response);
-                //next();
-            }
-            else if (height === 0 && width > 0) {
+            else if (height === 0 && width === 0) {
                 res.sendFile(yield response);
-                //  next();
+            }
+            else if (notValidValues || height < 0 || width < 0) {
+                res.status(400).send(yield response);
             }
         }
         else if (!originalImage || notValidValues || !validValues) {
-            res.status(200).send(yield response);
-            next();
+            res.status(400).send(yield response);
         }
         else {
             res.status(400).send(yield response);
-            next();
         }
     }
     else {
         res.status(400).send(yield response);
-        next();
     }
-    // next();
 }));
 exports.default = resizing;
