@@ -28,8 +28,7 @@ resizing.get("/", async (req: Request, res: Response): Promise<void> => {
   if (req.query) {
     if (fs.existsSync(outFilePath)) {
       res.status(200).sendFile(await response);
-    } 
-    else if (originalImage) {
+    } else if (originalImage) {
       if (validValues && !notValidValues) {
         res.status(200).sendFile(await response);
       } else if (notValidValues) {
