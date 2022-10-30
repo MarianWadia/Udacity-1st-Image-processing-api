@@ -31,7 +31,7 @@ resizing.get("/", async (req: Request, res: Response): Promise<void> => {
     } else if (originalImage) {
       if (validValues && !notValidValues) {
         res.status(200).sendFile(await response);
-      } else if (notValidValues) {
+      } else if (notValidValues || !validValues) {
         res.status(400).send(await response);
       }
     } else if (!originalImage || notValidValues || !validValues) {
